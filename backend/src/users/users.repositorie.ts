@@ -27,6 +27,12 @@ export class userRepositorie {
     }
 
 
+    async findByEmail (email: string) : Promise<User>{
+
+        return await this.userModel.findOne({email}).exec();
+    }
+
+
     async findById(id : string): Promise<User>{
 
         return await this.userModel.findOne({_id: id}).exec();
@@ -37,7 +43,7 @@ export class userRepositorie {
 
         return await this.userModel.findByIdAndUpdate(id , userData , {new: true}).exec();
     }
-    
+
 
     async delete(id: string): Promise<User>{
         
