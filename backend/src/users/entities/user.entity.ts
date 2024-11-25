@@ -22,6 +22,6 @@ export class User extends Document {
     @Prop({min:10 , max:15})
     phone: number ;
 
-
-
 }
+
+export const userShema = SchemaFactory.createForClass(User);
