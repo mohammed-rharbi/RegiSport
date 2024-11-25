@@ -16,12 +16,12 @@ export class User extends Document {
     @Prop({required: true})
     password: string ;
 
-    @Prop({enum:['participant' , 'user'] , default:'user'})
+    @Prop({enum:['participant' , 'manager'] , default:'participant'})
     role: string ;
 
     @Prop({min:10 , max:15})
     phone: number ;
 
-
-
 }
+
+export const userShema = SchemaFactory.createForClass(User);
