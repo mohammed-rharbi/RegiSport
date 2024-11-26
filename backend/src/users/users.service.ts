@@ -6,6 +6,7 @@ import { userRepositorie } from './users.repositorie';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt'
 import { LoginUserDto } from './dto/login-user.dto';
+import e from 'express';
 
 @Injectable()
 export class UsersService {
@@ -151,6 +152,18 @@ export class UsersService {
       throw new NotFoundException('thre is an error during deleting this user ', err)
     }
 
-;
+  }
+
+
+  async findByEmail(email: string): Promise<User>{
+
+    const user =  await this.userRepositorie.findByEmail(email);
+
+    if(!user){
+
+      throw new NotFoundException('the user is not found');
+    }
+
+    return user
   }
 }
