@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { EventRepositorie } from './events.repositorie';
@@ -11,33 +11,73 @@ export class EventsService {
 
 
 
-  async  create(eventDataDto: CreateEventDto): Promise<Event> {
-
+  async  create(eventDataDto: CreateEventDto ): Promise<Event> {
+    
     try{
 
-
+ 
       return await this.eventRepository.create(eventDataDto)
 
-    }catch(err: any){
+    }catch(err: any){ 
 
       throw new BadRequestException('error while creating the event' + err)
 
     }
   }
 
-  findAll() {
-    return `This action returns all events`;
+  async findAll(): Promise<Event[]> {
+
+    const events = await this.eventRepository.getAllEvents();
+
+    if(!events){
+
+      throw new NotFoundException('no events ben found');
+    }
+
+    return events
+
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} event`;
+  async findEventById(id: string): Promise<Event> {
+
+    const event = await this.eventRepository.findById(id)
+
+    if(!event){
+
+      throw new NotFoundException('no event found');
+
+    }
+
+    return event 
   }
 
-  update(id: string, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+
+  async update(id: string, updateEventDto: UpdateEventDto) {
+
+
+    try{
+
+      const event = await this.eventRepository.findById(id);
+
+      if(!event){
+        throw new NotFoundException('no event found');
+      }
+
+      return await this.eventRepository.update(id , updateEventDto);
+
+
+    }catch(err: any){
+
+      throw new BadRequestException('error while updating event')
+
+    }
+
+    
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} event`;
+  async remove(id: string): Promise<{message: string}> {
+
+    return await this.eventRepository.delete(id);
+    
   }
 }
