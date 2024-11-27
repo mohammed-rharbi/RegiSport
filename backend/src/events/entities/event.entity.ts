@@ -4,14 +4,14 @@ import { User } from "src/users/entities/user.entity";
 
 
 
-
+@Schema()
 export class Event extends Document {
 
 
     @Prop({required:true})
     title: string ;
 
-    @Prop({required: true})
+    @Prop({required: false})
     image: string ;
 
     @Prop({required: true})
