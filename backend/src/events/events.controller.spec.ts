@@ -1,9 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
+import { UsersService } from 'src/users/users.service';
 
 describe('EventsController', () => {
   let controller: EventsController;
+  let service: UsersService;
+
+
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
