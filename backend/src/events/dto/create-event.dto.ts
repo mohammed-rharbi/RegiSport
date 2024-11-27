@@ -1,4 +1,5 @@
-import { IsNotEmpty , IsString , IsDate, IsAlpha   } from "class-validator";
+import { Type } from "class-transformer";
+import { IsNotEmpty , IsString , IsDate, IsOptional } from "class-validator";
 
 
 
@@ -6,11 +7,11 @@ export class CreateEventDto {
 
 @IsString()
 @IsNotEmpty()
-@IsAlpha()
 title: string ;
 
 @IsDate()
 @IsNotEmpty()
+@Type(()=>Date)
 date: Date ;
 
 @IsString()
@@ -19,7 +20,11 @@ description: string;
 
 @IsString()
 @IsNotEmpty()
-location: string
+location: string ;
+
+@IsOptional()
+@IsString()
+image?: string ;
 
 
 
