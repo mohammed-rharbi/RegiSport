@@ -24,7 +24,7 @@ location: string ;
 
 @IsOptional()
 @IsString()
-image?: string ;
+image? : string ;
 
 
 
