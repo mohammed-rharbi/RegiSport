@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, UseInterceptors, UploadedFile, NotFoundException } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './entities/event.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @Controller('events')
 export class EventsController {
@@ -12,9 +14,25 @@ export class EventsController {
 
 
   @Post('create/event')
-  async create(@Body() createEventDto: CreateEventDto): Promise<{message: string}> {
+  @UseInterceptors(
+    FileInterceptor('image', {
+
+          storage: diskStorage({
+              destination: './uploads',
+              filename:(req , file , callback)=>{
+              const uniqueName = `${Date.now()}-${file.originalname}`;
+              callback(null , uniqueName);
+            },
+          }),
+          }
+  ))
+    async CreateEvent(@Body() createEventDto: CreateEventDto , @UploadedFile() image: Express.Multer.File ): Promise<{ message: string}> {
 
     try{
+
+      if(image){
+        createEventDto.image = image.filename;
+      }
 
     const event = await this.eventsService.create(createEventDto);
 
@@ -25,27 +43,83 @@ export class EventsController {
       throw new BadRequestException('error for creating event' + err);
     }
 
-
   }
 
 
-  @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  @Get('get/events')
+  async findAll() {
+
+    try{
+
+      const events =  await this.eventsService.findAll();
+
+      if(!events){
+
+        throw new NotFoundException('no events found')
+      }
+
+      return events
+
+    }catch(err: any){
+
+      throw new BadRequestException('error while fetching events', err)
+    }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+
+
+
+  @Get('getEvent/:id')
+  async findOne(@Param('id') id: string) {
+  
+    try{
+
+       const event =  await this.eventsService.findEventById(id)
+
+      if(!event){
+
+        throw new NotFoundException('no events found')
+      }
+
+      return event
+
+
+    }catch(err: any){
+
+      throw new BadRequestException('error while getting event', err)
+    }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
+  
+
+  @Patch('update/event/:id')
+  @UseInterceptors(
+    FileInterceptor('image', {
+
+          storage: diskStorage({
+              destination: './uploads',
+              filename:(req , file , callback)=>{
+              const uniqueName = `${Date.now()}-${file.originalname}`;
+              callback(null , uniqueName);
+            },
+          }),
+          }
+  ))
+  async updateEvent(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto , @UploadedFile() image: Express.Multer.File) {
+
+
+    if(image){
+      updateEventDto.image = image.filename
+    }
+
     return this.eventsService.update(id, updateEventDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.eventsService.remove(id);
+
+
+  @Delete('delete/event/:id')
+  async removeEvent(@Param('id') id: string) {
+
+    return await this.eventsService.remove(id);
   }
 }
