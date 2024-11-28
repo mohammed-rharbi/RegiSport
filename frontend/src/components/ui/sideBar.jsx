@@ -18,7 +18,7 @@ export default function SideBar() {
     }
 
   return (
-    <div className="w-72 h-full bg-gradient-to-r from-gray-800 to-gray-700 text-white p-6 flex flex-col shadow-lg rounded-r-2xl">
+    <div className="fixed w-[16rem] h-full bg-gradient-to-r from-gray-800 to-gray-700 text-white p-6 flex flex-col shadow-lg ">
 
       <div className="flex justify-center items-center mb-10">
         <h2 className="text-3xl font-extrabold text-blue-400 uppercase tracking-wide">Manager Dashboard</h2>
@@ -28,18 +28,13 @@ export default function SideBar() {
       <ul className="flex-1">
 
         <li className="mb-5 hover:bg-blue-600 transition-all duration-300 rounded-lg shadow-md hover:shadow-xl">
-        <Link className="block text-lg py-2 px-4 hover:text-white">Users</Link>
+        <Link to={'/users'} className="block text-lg py-2 px-4 hover:text-white">Users</Link>
         </li>
         
         <li className="mb-5 hover:bg-blue-600 transition-all duration-300 rounded-lg shadow-md hover:shadow-xl">
-          <a href="#movies" className="block text-lg py-2 px-4 hover:text-white">Movies</a>
+        <Link to={'/events'} className="block text-lg py-2 px-4 hover:text-white">Events</Link>
         </li>
-        <li className="mb-5 hover:bg-blue-600 transition-all duration-300 rounded-lg shadow-md hover:shadow-xl">
-          <a href="#reservations" className="block text-lg py-2 px-4 hover:text-white">Reservations</a>
-        </li>
-        <li className="mb-5 hover:bg-blue-600 transition-all duration-300 rounded-lg shadow-md hover:shadow-xl">
-          <a href="#users" className="block text-lg py-2 px-4 hover:text-white">Users</a>
-        </li>
+        
       </ul>
 
 
