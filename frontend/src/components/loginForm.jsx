@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../hooks/authContext';
+import { toast } from 'react-toastify';
 
 
 export default function LoginForm() {
@@ -27,6 +28,7 @@ export default function LoginForm() {
             navigate('/home');
           }else if(res.role === 'manager'){
             navigate('/dash');
+            toast.success('welcome admin')
           }else{
             navigate('/')
           }
