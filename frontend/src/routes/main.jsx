@@ -7,6 +7,8 @@ import LandingPage from "../pages/landingPage";
 import Home from "../pages/home";
 import DashBoard from "../pages/dashBoard";
 import ManagerLayout from "../layout/managerLayout";
+import ManageEvents from "../components/events/manageEvents";
+import ManageUsers from "../components/users/manageUsers";
 
 const MainRouter = createBrowserRouter([
   {
@@ -17,7 +19,6 @@ const MainRouter = createBrowserRouter([
         path: "home",
         element: <Home />, 
       },
-
     ],
   },
 
@@ -29,6 +30,14 @@ const MainRouter = createBrowserRouter([
       {
         path: "dash",
         element: <DashBoard />, 
+      },
+      {
+        path: "users",
+        element: <ManageUsers />, 
+      },
+      {
+        path: "events",
+        element: <ManageEvents />, 
       },
     ],
   },
