@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../hooks/authContext'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export default function RegisterForm() {
 
@@ -23,12 +24,13 @@ export default function RegisterForm() {
         try{
 
           await register(userName , email , password);
+          toast.success('registerd  successfully, please login to your account');
           navigate('/login');
 
 
         }catch(err){
 
-            setError('Registration failed. Please try again')
+           setError('Registration failed. Please try again')
         }
     }
 
