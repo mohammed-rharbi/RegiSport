@@ -6,7 +6,6 @@ import { userRepositorie } from './users.repositorie';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt'
 import { LoginUserDto } from './dto/login-user.dto';
-import e from 'express';
 
 @Injectable()
 export class UsersService {
@@ -42,7 +41,7 @@ export class UsersService {
 
   }
 
-  async login( userData: LoginUserDto ): Promise<{message: string ,token: string}>{
+  async login( userData: LoginUserDto ): Promise<{message: string ,token: string , user:User } >{
 
     try{
 
@@ -55,10 +54,11 @@ export class UsersService {
         throw new UnauthorizedException('invalid info');
       }
 
-      const payload = { email: user.email , id: user._id};
+      const userInfo = { id: user._id , role: user.role }
+      const payload = { email: user.email ,role: user.role ,  id: user._id};
       const token = this.jwtService.sign(payload);
 
-      return {message:'login was success',  token} ;
+      return {message:'login was success',  token , user } ;
 
     }catch(err: any){
 
