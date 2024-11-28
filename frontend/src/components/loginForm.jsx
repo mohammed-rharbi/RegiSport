@@ -1,14 +1,46 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../hooks/authContext';
 
 
 export default function LoginForm() {
 
+    const {login} = useContext(AuthContext);
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
+    const [error , setError] = useState(null);
+
+    const navigate = useNavigate()
+
+
+
+    const handleLogin = async (e) => {
+
+        e.preventDefault();
+
+        try{
+
+          const res =  await login(email , password);
+
+          if(res.role === 'participant'){
+
+            navigate('/home');
+          }else if(res.role === 'manager'){
+            navigate('/dash');
+          }else{
+            navigate('/')
+          }
+          
+        }catch(err){
+
+            setError('Invalid Info , please try again');
+
+        }
+
+    }
 
 
   return (
-
     
  <div
     className="relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
@@ -18,7 +50,7 @@ export default function LoginForm() {
             <p className="mt-2 text-gray-500">login in to get access your account</p>
         </div>
         <div className="mt-5">
-            <form action="">
+            <form onSubmit={handleLogin}>
 
                 <div className="relative mt-6">
                     <input onChange={(e)=> setEmail(e.target.value)} type="email" name="email" placeholder="Email Address" className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none" />
@@ -33,12 +65,11 @@ export default function LoginForm() {
                     <button type="submit" className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none">Sign in</button>
                 </div>
                 <p className="text-center text-sm text-gray-500">you dont have an account yet ?
-                    <a href="#!"
-                        className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none">Sign
-                        up
-                    </a>.
+                    <Link to={'/register'} className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none">Sign up</Link>
                 </p>
             </form>
+
+            {error &&   <p className='text-red-500 text-center mt-10'>{error}</p> }
         </div>
     </div>
 </div>
