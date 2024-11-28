@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
-import { register } from '../services/authApi'
-
-
+import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../hooks/authContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function RegisterForm() {
 
+    const { register } = useContext(AuthContext)
     const [userName , setUserName] = useState('')
     const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
+    const [error , setError] = useState(null);
+
+    const navigate = useNavigate()
 
 
-    const handleSubmit = (e)=>{
+
+
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        register(userName , email , password);
+        try{
+
+          await register(userName , email , password);
+          navigate('/login');
+
+
+        }catch(err){
+
+            setError('Registration failed. Please try again')
+        }
     }
 
 
@@ -50,11 +65,11 @@ export default function RegisterForm() {
                     <button type="submit" className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none">Sign up</button>
                 </div>
                 <p className="text-center text-sm text-gray-500">you have an account ?
-                    <a href="#!"
-                        className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none">Sign in
-                    </a>.
+
+                    <Link to={'/login'} className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none">Sign in</Link>
                 </p>
             </form>
+            {error && <p className='text-red'>{error}</p>}
         </div>
     </div>
 </div>
