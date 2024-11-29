@@ -21,7 +21,9 @@ export default function SideBar() {
     <div className="fixed w-[16rem] h-full bg-gradient-to-r from-gray-800 to-gray-700 text-white p-6 flex flex-col shadow-lg ">
 
       <div className="flex justify-center items-center mb-10">
+        <Link to={'/dash'}>
         <h2 className="text-3xl font-extrabold text-blue-400 uppercase tracking-wide">Manager Dashboard</h2>
+        </Link>
       </div>
 
 
