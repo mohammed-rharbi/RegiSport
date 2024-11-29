@@ -38,9 +38,9 @@ export default function EventDetails() {
   return (
 
 
-    <div className="bg-gray-50 min-h-screen flex flex-col md:flex-row ">
+    <div className="min-h-screen flex flex-col md:flex-row ">
 
-      <div className="w-full md:w-3/4 bg-white p-10 space-y-8 overflow-auto ">
+      <div className="w-full md:w-3/4 bg-gray-700 rounded-l-2xl p-10 space-y-8 overflow-auto ">
 
         <div className="relative">
           <img
@@ -51,18 +51,18 @@ export default function EventDetails() {
           <div className="absolute inset-0 bg-black opacity-30 rounded-xl"></div>
         </div>
         <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">{event.title}</h1>
-          <p className="text-xl text-gray-600 mb-6">{event.description}</p>
-          <div className="text-sm text-gray-500">
-            <span className="font-semibold text-gray-900">Date:</span> {event.date} | 
-            <span className="ml-6 font-semibold text-gray-900">Location:</span> {event.location}
+          <h1 className="text-4xl font-bold text-gray-200 mb-4">{event.title}</h1>
+          <p className="text-xl text-gray-300 mb-6">{event.description}</p>
+          <div className="text-sm text-gray-300">
+            <span className="font-semibold text-gray-400">Date:</span> {event.date} | 
+            <span className="ml-6 font-semibold text-gray-400">Location:</span> {event.location}
           </div>
         </div>
 
 
-        <div className="bg-gray-50 p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">About the Event</h2>
-          <p className="text-lg leading-relaxed text-gray-700">
+        <div className="bg-gray-600 p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-200">About the Event</h2>
+          <p className="text-lg leading-relaxed text-gray-300">
             {event.description}
           </p>
         </div>
