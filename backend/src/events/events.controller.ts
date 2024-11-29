@@ -122,4 +122,21 @@ export class EventsController {
 
     return await this.eventsService.remove(id);
   }
+
+
+  @Patch(':eventId/addParticipent/:userId')
+  async addParticipent(@Param('eventId') eventId: string , @Param('userId') userId: string ){
+
+    try {
+      
+      const updateEvent = await this.eventsService.addParticipant(eventId , userId)
+
+      return { message: `User added to event successfully` };
+
+    } catch (error) {
+
+      throw new BadRequestException('error adding participent')
+      
+    }
+  }
 }
