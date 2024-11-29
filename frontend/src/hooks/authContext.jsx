@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import apiClient from '../services/axios.client';
 
 
@@ -13,6 +13,8 @@ export  const AuthProvider = ({children}) => {
 
 
     const [user , setuser] = useState(null);
+
+    const [users , setUsers] = useState([]);
 
     const [token , setToken] = useState(null);
 
@@ -73,9 +75,27 @@ export  const AuthProvider = ({children}) => {
     }
 
 
+    const getAllUsers = async () => {
+
+
+        try{
+
+            const res = await apiClient.get('/users/getAllUsers');
+            
+            return res.data
+
+        }catch(err){
+
+            console.log('error during fetching users', err);
+            throw err
+        }
+
+    }
+
+
   return (
 
-    <AuthContext.Provider value={{user , token , register , login , logout}}>
+    <AuthContext.Provider value={{user ,users , token , register , login , logout , getAllUsers}}>
         {children}
     </AuthContext.Provider>
   )
