@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function DashCard() {
+export default function DashCard({name}) {
   return (
 
-<div class="div h-[8em] w-[20em] bg-white m-auto rounded-[1em] overflow-hidden relative group p-2 z-0">
+<div class="div h-[8em] w-[20em] bg-gray-600 m-auto rounded-[1em] overflow-hidden relative group p-2 z-0">
   <div
     class="circle absolute h-[5em] w-[5em] -top-[2.5em] -right-[2.5em] rounded-full bg-[#FF5800] group-hover:scale-[800%] duration-500 z-[-1] op"
   ></div>
@@ -17,8 +17,8 @@ export default function DashCard() {
     <i class="fa-solid fa-arrow-right"></i>
   </button>
 
-  <h1 class="z-20 font-bold font-Poppin group-hover:text-white duration-500 text-[1.4em]">
-    HEADING
+  <h1 class="z-20 font-bold font-Poppin text-gray-100 group-hover:text-black duration-500 text-[1.4em]">
+    {name}
   </h1>
 </div>
   )
