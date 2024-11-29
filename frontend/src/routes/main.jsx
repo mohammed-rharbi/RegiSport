@@ -9,6 +9,7 @@ import DashBoard from "../pages/dashBoard";
 import ManagerLayout from "../layout/managerLayout";
 import ManageEvents from "../components/events/manageEvents";
 import ManageUsers from "../components/users/manageUsers";
+import EventDetails from "../components/events/eventDetails";
 
 const MainRouter = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const MainRouter = createBrowserRouter([
       {
         path: "events",
         element: <ManageEvents />, 
+      },
+      {
+        path: "event/details/:id",
+        element: <EventDetails />, 
       },
     ],
   },
