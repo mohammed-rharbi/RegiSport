@@ -1,10 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import CreateEvent from './createEvent';
 import { EventContext } from '../../hooks/eventsContext';
+import UpdateEvent from './updateEvent';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 export default function ManageEvents() {
   const [isOpen, setIsOpen] = useState(false);
-  const { events, getEvents } = useContext(EventContext);
+  const [showUpdate , setShowUpdate] = useState(false);
+  const [selectedEvent , setSelectedEvent ] = useState(null);
+
+  const { events, getEvents , deleteEvent } = useContext(EventContext);
 
 
   const fakeImage = 'https://images.pexels.com/photos/2897462/pexels-photo-2897462.jpeg?auto=compress&cs=tinysrgb&w=600';
@@ -14,9 +20,29 @@ export default function ManageEvents() {
     setIsOpen(!isOpen);
   };
 
+
+  const toggleUpdate = () => {
+    setShowUpdate(!showUpdate);
+
+  };
+
+  const handleDelete = async (id)=>{
+
+    if(window.confirm('are you sure you want to delete this event ')){
+
+        await deleteEvent(id)
+        getEvents()
+        toast.success('event deleted successfully');
+
+    }
+   
+
+  }
+
+
   useEffect(() => {
     getEvents();
-  }, [getEvents]);
+  }, []);
 
   return (
     <>
@@ -69,19 +95,27 @@ export default function ManageEvents() {
                   <p className="mt-4 text-sm text-gray-300 leading-relaxed">{event.description}</p>
                 </div>
                 <div className="p-4 bg-gray-700 flex justify-between items-center">
+                    
+           
+                  <Link to={`/event/details/${event._id}`}>
                   <button className="bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-4 py-2 rounded shadow">
                     View Details
                   </button>
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded shadow">
+                  </Link>
+                 
+                  <button onClick={()=> { setShowUpdate(true) ; setSelectedEvent(event) }} className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#e8eaed">
                       <path d="M186.67-186.67H235L680-631l-48.33-48.33-445 444.33v48.33Z" />
                     </svg>
                   </button>
-                  <button className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded shadow">
+
+
+                  <button  onClick={()=> handleDelete(event._id)} className="bg-red-500 hover:bg-red-600 text-white text-sm font-semibold px-4 py-2 rounded shadow">
                     <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="#e8eaed">
                       <path d="M267.33-120q-27.5 0-47.08-19.58-19.58-19.59-19.58-47.09V-740H160v-66.67h192V-840h256v33.33h192V-740h-40.67v553.33q0 27-19.83 46.84Q719.67-120 692.67-120H267.33Z" />
                     </svg>
                   </button>
+
                 </div>
               </div>
             ))}
@@ -89,7 +123,9 @@ export default function ManageEvents() {
         </main>
       </div>
 
+      
       {isOpen && <CreateEvent toggleModal={toggleModal} />}
+      {showUpdate && <UpdateEvent event={selectedEvent} toggleModal={toggleUpdate} />}
     </>
   );
 }
