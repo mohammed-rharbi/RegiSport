@@ -131,11 +131,29 @@ export  const EventProvider = ({children}) => {
 
     }
 
+    const addUserToEvent = async (userId , eventId)=>{
+
+
+        try {
+
+            const res = await apiClient.patch(`events/${eventId}/addParticipent/${userId}`);
+
+            return res.data
+
+        } catch (error) {
+
+            console.log('error during deleting the event', error);
+            
+            
+        }
+
+    }
+
 
 
   return (
 
-    <EventContext.Provider value={{events , createEvent , getEvents , updateEvent , getEventById , deleteEvent }}>
+    <EventContext.Provider value={{events , createEvent , getEvents , updateEvent , getEventById , deleteEvent , addUserToEvent }}>
         {children}
     </EventContext.Provider>
   )
