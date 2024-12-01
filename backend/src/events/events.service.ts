@@ -150,7 +150,6 @@ async addParticipant(eventId: string, userIds: string[]): Promise<{ message: str
       
       const userEvents = await this.eventRepository.getUserEvents(userId)
 
-      console.log(userEvents);
       
 
       if(!userEvents || userEvents.length === 0){

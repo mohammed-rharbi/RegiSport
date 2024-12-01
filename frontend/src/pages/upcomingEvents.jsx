@@ -1,29 +1,15 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { EventContext } from '../hooks/eventsContext';
-import { AuthContext } from '../hooks/authContext';
 
-export default function MyEvents() {
-  const [events, setEvents] = useState([]);
-  const { getUserEvents } = useContext(EventContext);
-  const { user } = useContext(AuthContext);
+export default function UpcomingEvents() {
+  const { events } = useContext(EventContext);
 
-  const fetchEvents = async () => {
-    try {
-      const userEvents = await getUserEvents(user._id);
-      setEvents(userEvents);
-    } catch (error) {
-      console.error("Error fetching events:", error);
-    }
-  };
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
+  
   if (events.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-teal-50 via-pink-100 to-purple-200">
-        <p className="text-xl font-semibold text-gray-700">You have no events yet.</p>
+        <p className="text-xl font-semibold text-gray-700">No upcoming events available.</p>
       </div>
     );
   }
@@ -31,7 +17,7 @@ export default function MyEvents() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-teal-50 via-pink-100 to-purple-200 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-5xl font-extrabold text-gray-800 mb-12 text-center">My Events</h1>
+        <h1 className="text-5xl font-extrabold text-gray-800 mb-12 text-center">Upcoming Events</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {events.map((event) => (
             <div
@@ -47,7 +33,7 @@ export default function MyEvents() {
                 <div className="absolute inset-0 bg-black opacity-30 group-hover:opacity-40 transition-opacity duration-300"></div>
                 <div className="absolute bottom-4 left-4 z-10">
                   <h2 className="text-2xl font-bold text-white mb-1">{event.title}</h2>
-                  <p className="text-lg text-gray-200">{ new Date(event.date).toDateString() }</p>
+                  <p className="text-lg text-gray-200">{new Date(event.date).toDateString()}</p>
                 </div>
               </div>
               <div className="p-6">
