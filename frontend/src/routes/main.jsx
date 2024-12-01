@@ -10,26 +10,33 @@ import ManagerLayout from "../layout/managerLayout";
 import ManageEvents from "../components/events/manageEvents";
 import ManageUsers from "../components/users/manageUsers";
 import EventDetails from "../components/events/eventDetails";
+import MyEvents from "../pages/myEvents";
+import Guard from "./guard";
 
 const MainRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Guard roles={'participent'}> <Layout />  </Guard>,
     children: [
       {
         path: "home",
-        element: <Home />, 
+        element:  <Home />, 
+      },
+
+      {
+        path: "myEvents",
+        element: <MyEvents />, 
       },
     ],
   },
 
   {
     path: "/",
-    element: <ManagerLayout />,
+    element:  <Guard roles={'manager'}> <ManagerLayout />  </Guard>,
     children: [
     
       {
-        path: "dash",
+        path: "dash",   
         element: <DashBoard />, 
       },
       {

@@ -7,13 +7,10 @@ import apiClient from '../services/axios.client';
 export const EventContext = createContext();
 
 
-
-
 export  const EventProvider = ({children}) => {
 
 
     const [events , setEvents] = useState([]);
-    const [loading , setLoading] = useState(false);
 
 
     const createEvent = async ( title , image , date , description , location) => {
@@ -131,11 +128,46 @@ export  const EventProvider = ({children}) => {
 
     }
 
+    const addUserToEvent = async (eventId , users)=>{
+
+
+        try {
+
+            const res = await apiClient.patch(`events/${eventId}/addParticipent` , {userIds: users});
+
+            return res.data
+
+        } catch (error) {
+
+            console.log('error during updating the event', error);
+            
+        }
+
+    }
+
+    
+    const getUserEvents = async (userId)=>{
+
+
+        try {
+
+            const res = await apiClient.get(`events/${userId}/userEvents`);
+
+            return res.data
+
+        } catch (error) {
+
+            console.log('error during updating the event', error);
+            
+        }
+
+    }
+
 
 
   return (
 
-    <EventContext.Provider value={{events , createEvent , getEvents , updateEvent , getEventById , deleteEvent }}>
+    <EventContext.Provider value={{events , createEvent , getEvents , updateEvent , getEventById , deleteEvent , addUserToEvent , getUserEvents }}>
         {children}
     </EventContext.Provider>
   )

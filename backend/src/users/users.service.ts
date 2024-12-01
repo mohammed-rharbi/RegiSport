@@ -6,6 +6,7 @@ import { userRepositorie } from './users.repositorie';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt'
 import { LoginUserDto } from './dto/login-user.dto';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class UsersService {
@@ -166,4 +167,11 @@ export class UsersService {
 
     return user
   }
+
+  async findUsersById(usersId : Types.ObjectId[]): Promise<User[]>{
+
+
+    return this.userRepositorie.findUsersById(usersId)
+
+}
 }

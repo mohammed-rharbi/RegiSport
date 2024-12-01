@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document , Types } from "mongoose";
 import { Prop , Schema , SchemaFactory } from "@nestjs/mongoose";
 import { User } from "src/users/entities/user.entity";
 
@@ -23,8 +23,8 @@ export class Event extends Document {
     @Prop({required: true})
     location: string ;
 
-    @Prop({ type: [User] , default: []})
-    participants : User[];
+    @Prop({ type: [Types.ObjectId] , ref:'User', default: []})
+    participants : Types.ObjectId[]
 }
 
 
