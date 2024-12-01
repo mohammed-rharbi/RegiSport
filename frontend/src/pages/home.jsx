@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { EventContext } from '../hooks/eventsContext';
 
 export default function Home() {
+
+
+  const {events} = useContext(EventContext)
+
   return (
     <div className="bg-gray-50">
 
@@ -30,52 +35,40 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
           <h2 className="text-3xl font-extrabold text-center text-gray-900">Upcoming Events</h2>
           <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Event Card 1 */}
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="https://via.placeholder.com/400x300"
-                alt="Event 1"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800">Concert in the Park</h3>
-                <p className="mt-2 text-gray-600">Join us for a beautiful evening of live music and fun vibes in the park!</p>
-                <button className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
-                  View Details
-                </button>
-              </div>
-            </div>
 
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="https://via.placeholder.com/400x300"
-                alt="Event 2"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800">Tech Conference 2024</h3>
-                <p className="mt-2 text-gray-600">A premier conference featuring leading speakers in technology and innovation.</p>
-                <button className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
-                  View Details
-                </button>
-              </div>
-            </div>
+          
+
+{
 
 
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img
-                src="https://via.placeholder.com/400x300"
-                alt="Event 3"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800">Charity Gala</h3>
-                <p className="mt-2 text-gray-600">An elegant evening to raise funds for a worthy cause.</p>
-                <button className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
-                  View Details
-                </button>
-              </div>
-            </div>
+events.map((event)=> (
+
+
+
+  <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+  <img
+    src="https://via.placeholder.com/400x300"
+    alt="Event 3"
+    className="w-full h-48 object-cover"
+  />
+  <div className="p-6">
+    <h3 className="text-xl font-semibold text-gray-800">{event.title}</h3>
+    <p className="mt-2 text-gray-600">{event.description}</p>
+    <button className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
+      View Details
+    </button>
+  </div>
+</div>
+
+
+) )
+
+}
+
+
+           
+
+
           </div>
         </div>
       </section>
