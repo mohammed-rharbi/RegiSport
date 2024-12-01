@@ -11,6 +11,7 @@ import ManageEvents from "../components/events/manageEvents";
 import ManageUsers from "../components/users/manageUsers";
 import EventDetails from "../components/events/eventDetails";
 import MyEvents from "../pages/myEvents";
+import UpcomingEvents from "../pages/upcomingEvents";
 import Guard from "./guard";
 
 const MainRouter = createBrowserRouter([
@@ -26,6 +27,11 @@ const MainRouter = createBrowserRouter([
       {
         path: "myEvents",
         element: <MyEvents />, 
+      },
+
+      {
+        path: "commingEvents",
+        element: <UpcomingEvents />, 
       },
     ],
   },
@@ -61,7 +67,7 @@ const MainRouter = createBrowserRouter([
     element: <Outlet />,
     children: [
       {
-        path: "/",
+        path: "landing",
         element: <LandingPage />,
       },
       {
