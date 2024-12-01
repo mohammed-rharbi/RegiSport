@@ -124,19 +124,44 @@ export class EventsController {
   }
 
 
-  @Patch(':eventId/addParticipent/:userId')
-  async addParticipent(@Param('eventId') eventId: string , @Param('userId') userId: string ){
+  @Patch(':eventId/addParticipent')
+  async addParticipent(@Param('eventId') eventId: string , @Body('userIds') userIds: string[] ){
 
     try {
+
+
+      if (!Array.isArray(userIds) || userIds.length === 0) {
+        throw new BadRequestException('User IDs must be a non-empty array');
+      }
       
-      const updateEvent = await this.eventsService.addParticipant(eventId , userId)
+      
+      return await this.eventsService.addParticipant(eventId , userIds)
 
-      return { message: `User added to event successfully` };
-
+     
     } catch (error) {
 
       throw new BadRequestException('error adding participent')
       
     }
+  }
+
+
+  @Get(':userId/userEvents')
+  async getUserEvents(@Param('userId') userId: string ){
+
+
+    try {
+
+      const userEvents = await this.eventsService.getUserEvents(userId);
+
+      
+      return userEvents
+      
+    } catch (error) {
+
+      throw new BadRequestException('error while fetching user events')
+      
+    }
+
   }
 }
