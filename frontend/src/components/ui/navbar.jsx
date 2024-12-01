@@ -64,7 +64,7 @@ export default function Navbar() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-             <h1 className='text-2xl font-bold text-white'>R.S</h1>
+             <h1 className='text-2xl font-bold text-white'>R.E</h1>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -77,8 +77,8 @@ export default function Navbar() {
                 My Events
                 </Link>
 
-                <Link to={'/home'}className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" aria-current="home">
-                Home Page
+                <Link to={'/commingEvents'}className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white" aria-current="home">
+                UpComming Events 
                 </Link>
 
               </div>
