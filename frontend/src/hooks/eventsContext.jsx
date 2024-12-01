@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import apiClient from '../services/axios.client';
 
 
@@ -162,6 +162,14 @@ export  const EventProvider = ({children}) => {
         }
 
     }
+
+
+    useEffect(()=>{
+
+
+        getEvents();
+
+    },[])
 
 
 
