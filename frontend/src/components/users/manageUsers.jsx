@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../hooks/authContext';
+import { toast } from 'react-toastify';
 
 export default function ManageUsers() {
  
  
     const [users , setUsers] = useState([])
-    const {getAllUsers} = useContext(AuthContext);
+    const {getAllUsers , deleteUser} = useContext(AuthContext);
 
 
 useEffect(()=>{
@@ -23,6 +24,21 @@ useEffect(()=>{
     getIt()
 
 },[])
+
+
+const handleDelete = async (id)=>{
+
+
+  
+  if(window.confirm('are you sure you want to delete this user ')){
+
+  await deleteUser(id);
+  getIt();
+  toast.success('user Deleted successfully');
+
+}
+
+}
 
 
     if(!users){
@@ -77,7 +93,7 @@ useEffect(()=>{
                 <button className="bg-gray-700 text-gray-300 px-3 py-1 rounded-md hover:bg-gray-600 transition">
                   Edit
                 </button>
-                <button className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition">
+                <button onClick={()=> handleDelete(user._id)} className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition">
                   Delete
                 </button>
               </div>
