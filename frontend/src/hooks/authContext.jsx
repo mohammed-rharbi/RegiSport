@@ -21,23 +21,6 @@ export  const AuthProvider = ({children}) => {
     const [isAuth , setIsAuth] = useState(false);
 
 
-
-
-    useEffect(()=>{
-
-
-        const token =  localStorage.getItem('token');
-
-        if(token){
-
-            setIsAuth(true);
-
-        }
-
-    },[])
-
-
-
     const register = async ( Name , email , password) => {
 
         try{
@@ -59,6 +42,47 @@ export  const AuthProvider = ({children}) => {
     };
 
 
+
+
+    const getUserById = async ( userId) => {
+
+        try{
+    
+            const userData = { userName: Name  , email: email , password: password  }
+    
+            const res = await apiClient.post(`users/getUserById/${userId}`);
+
+            setuser(res.data)
+    
+            return res.data
+    
+        }catch(err){
+    
+            console.log('error while fetching user', err);
+            throw err
+            
+        };
+    };
+
+    
+    useEffect(()=>{
+
+
+        const token =  localStorage.getItem('token');
+        const userId = localStorage.getItem('userId')
+
+        if(token){
+
+            setIsAuth(true);
+            setToken(token);
+
+        }
+         getUserById(userId);
+
+    },[])
+
+
+    
     const login = async (email , password) => {
 
 
