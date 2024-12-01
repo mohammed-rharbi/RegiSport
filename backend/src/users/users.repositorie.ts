@@ -2,7 +2,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User , userShema } from "./entities/user.entity";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
 
@@ -48,6 +48,14 @@ export class userRepositorie {
     async delete(id: string): Promise<User>{
         
         return await this.userModel.findByIdAndDelete(id).exec();
+    }
+
+
+    async findUsersById(usersId : Types.ObjectId[]): Promise<User[]>{
+
+
+        return this.userModel.find({_id: {$in: usersId}}).exec();
+
     }
 
 
