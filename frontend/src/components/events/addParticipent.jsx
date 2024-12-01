@@ -2,41 +2,57 @@ import React, { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { EventContext } from '../../hooks/eventsContext';
 import { AuthContext } from '../../hooks/authContext';
+import Search from '../ui/search';
 
 export default function AddParticipent({ event, toggleModal }) {
+
     const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
-    const { getAllUsers} = useContext(AuthContext)
-
-    const {addUserToEvent} = useContext(EventContext)
-
-    
+    const { getAllUsers } = useContext(AuthContext);
+    const { addUserToEvent } = useContext(EventContext);
 
 
+
+    const handleUserSelection = (userId) => {
+        setSelectedUsers((prevSelectedUsers) =>
+            prevSelectedUsers.includes(userId)
+                ? prevSelectedUsers.filter((id) => id !== userId)
+                : [...prevSelectedUsers, userId]
+        );
+    };
+
+      
     useEffect(() => {
-
         const fetchUsers = async () => {
             try {
-
-                const res = await getAllUsers()
-
+                const res = await getAllUsers();
                 setUsers(res);
-                
-
+                setFilteredUsers(res)
             } catch (err) {
                 console.error('Error fetching users:', err);
+                setError('Failed to fetch users. Please try again later.');
             }
         };
         fetchUsers();
-    }, []);
+    }, [getAllUsers]);
 
+
+
+    const handleSearch = async (query) => {
+
+        const lowerQuery = query.toLowerCase();
+
+        setFilteredUsers( users.filter((user)=> user.userName.toLowerCase().includes(lowerQuery) || user.email.includes(lowerQuery)));
+
+    }
 
 
     const addParticipent = async (e) => {
-
         e.preventDefault();
 
         if (selectedUsers.length === 0) {
@@ -44,16 +60,19 @@ export default function AddParticipent({ event, toggleModal }) {
             return;
         }
 
+        setError('')
+        setLoading(true)
+
         try {
-
-            
-            await addUserToEvent(event._id , );
-
+            await addUserToEvent(event._id, selectedUsers);
             toast.success('Users added successfully');
+            setSelectedUsers([]);
             toggleModal();
         } catch (err) {
-            setError('There was an error while updating the event, please try again');
+            setError('There was an error while updating the event. Please try again.');
             console.error('Error during event update:', err);
+        } finally{
+            setLoading(false);
         }
     };
 
@@ -92,14 +111,21 @@ export default function AddParticipent({ event, toggleModal }) {
                         </button>
                     </div>
 
+                    <Search handleSearch={handleSearch}/>
+
                     <form onSubmit={addParticipent} encType="multipart/form-data" className="p-4 md:p-5">
                         <div className="grid gap-4 mb-4 grid-cols-1">
-
                             <div>
                                 <h4 className="font-semibold text-gray-700">Select Users</h4>
                                 <div className="space-y-2 mt-2">
-                                    {users.map((user) => (
+                                    {filteredUsers.map((user) => (
                                         <div key={user._id} className="flex items-center space-x-2">
+                                            <div className="p-2 h-10 w-10 bg-blue-500 text-white text-center rounded-full">
+                                                {user.userName[0]}
+                                            </div>
+                                            <label htmlFor={`user-${user._id}`} className="text-gray-300">
+                                                {user.email}
+                                            </label>
                                             <input
                                                 type="checkbox"
                                                 id={`user-${user._id}`}
@@ -107,9 +133,6 @@ export default function AddParticipent({ event, toggleModal }) {
                                                 onChange={() => handleUserSelection(user._id)}
                                                 className="h-4 w-4 text-blue-600 border-gray-300 rounded"
                                             />
-                                            <label htmlFor={`user-${user._id}`} className="text-gray-800">
-                                                {user.userName}
-                                            </label>
                                         </div>
                                     ))}
                                 </div>
@@ -130,7 +153,7 @@ export default function AddParticipent({ event, toggleModal }) {
                                 type="submit"
                                 className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                             >
-                                Save
+                                   {loading ? 'Saving...' : 'Save'}
                             </button>
                         </div>
                     </form>
