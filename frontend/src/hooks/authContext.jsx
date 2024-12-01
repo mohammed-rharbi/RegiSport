@@ -18,6 +18,25 @@ export  const AuthProvider = ({children}) => {
 
     const [token , setToken] = useState(null);
 
+    const [isAuth , setIsAuth] = useState(false);
+
+
+
+
+    useEffect(()=>{
+
+
+        const token =  localStorage.getItem('token');
+
+        if(token){
+
+            setIsAuth(true);
+
+        }
+
+    },[])
+
+
 
     const register = async ( Name , email , password) => {
 
@@ -50,9 +69,11 @@ export  const AuthProvider = ({children}) => {
 
             setuser(user);
             setToken(token);
+            setIsAuth(true)
 
             localStorage.setItem('token',token);
             localStorage.setItem('role', user.role);
+            localStorage.setItem('userId',user._id)
 
             return user
 
@@ -69,6 +90,7 @@ export  const AuthProvider = ({children}) => {
 
         setuser(null);
         setToken(null);
+        setIsAuth(false)
         localStorage.removeItem('token');
         localStorage.removeItem('role')
 
@@ -92,10 +114,27 @@ export  const AuthProvider = ({children}) => {
 
     }
 
+    const deleteUser = async (userId) => {
+
+
+        try{
+
+            const res = await apiClient.delete(`/users/deleteUser/${userId}`);
+            
+            return res.data
+
+        }catch(err){
+
+            console.log('error during deleting users', err);
+            throw err
+        }
+
+    }
+
 
   return (
 
-    <AuthContext.Provider value={{user ,users , token , register , login , logout , getAllUsers}}>
+    <AuthContext.Provider value={{user ,users , token , isAuth , register , login , logout , getAllUsers , deleteUser}}>
         {children}
     </AuthContext.Provider>
   )
