@@ -1,91 +1,92 @@
 import React, { useContext } from 'react';
 import { EventContext } from '../hooks/eventsContext';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
-
-
-  const {events} = useContext(EventContext)
+  const { events } = useContext(EventContext);
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-100 min-h-screen">
 
-      <section className="relative bg-indigo-600 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-24 sm:px-12 sm:py-32 lg:px-16 lg:py-40">
-          <div className="text-center text-white">
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Find Your Perfect Event
-            </h1>
-            <p className="mt-4 text-lg sm:text-xl">
-              Discover events near you, book tickets, and stay updated on the latest happenings!
-            </p>
-            <div className="mt-8 flex justify-center gap-4">
-              <button className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
-                Browse Events
-              </button>
-              <button className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-700 hover:bg-indigo-800">
-                Host an Event
-              </button>
-            </div>
+
+      <section className="relative bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
+        <div className="max-w-7xl mx-auto px-6 py-20 sm:py-32 lg:py-40 text-center">
+          <h1 className="text-5xl font-extrabold sm:text-6xl tracking-tight animate-fade-in-down">
+            Discover Events That Inspire
+          </h1>
+          <p className="mt-6 text-lg sm:text-xl opacity-90 max-w-3xl mx-auto animate-fade-in">
+            Explore the best events near you. Book tickets, host events, and make memories that last a lifetime.
+          </p>
+          <div className="mt-10 flex justify-center gap-6">
+            <button className="px-8 py-3 text-lg font-medium bg-white text-indigo-600 rounded-lg shadow-lg hover:bg-gray-100 transform transition-transform hover:scale-105">
+              Browse Events
+            </button>
+            <button className="px-8 py-3 text-lg font-medium bg-purple-700 text-white rounded-lg shadow-lg hover:bg-purple-800 transform transition-transform hover:scale-105">
+              Host an Event
+            </button>
           </div>
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-700 via-indigo-600 to-transparent opacity-70"></div>
       </section>
 
 
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <h2 className="text-3xl font-extrabold text-center text-gray-900">Upcoming Events</h2>
-          <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-
-          
-
-{
-
-
-events.map((event)=> (
-
-
-
-  <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-  <img
-    src="https://via.placeholder.com/400x300"
-    alt="Event 3"
-    className="w-full h-48 object-cover"
-  />
-  <div className="p-6">
-    <h3 className="text-xl font-semibold text-gray-800">{event.title}</h3>
-    <p className="mt-2 text-gray-600">{event.description}</p>
-    <button className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100">
-      View Details
-    </button>
-  </div>
-</div>
-
-
-) )
-
-}
-
-
-           
-
-
+          <h2 className="text-4xl font-extrabold text-center text-gray-800">
+            Upcoming Events
+          </h2>
+          <p className="mt-4 text-center text-gray-600">
+            Don’t miss out on the hottest events happening near you!
+          </p>
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {events.slice(0, 3).map((event) => (
+              <div
+                key={event._id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+              >
+                <img
+                  src="https://via.placeholder.com/400x300"
+                  alt={event.title}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-2xl font-semibold text-gray-800">{event.title}</h3>
+                  <p className="mt-3 text-gray-600 line-clamp-2">{event.description}</p>
+                  <Link to={`/event/page/${event._id}`}>
+                    <button className="mt-6 px-6 py-2 text-indigo-600 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition-transform transform hover:scale-105">
+                      View Details
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 py-24">
+
+      <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16">
-          <h2 className="text-3xl font-extrabold text-center text-gray-900">What Our Users Say</h2>
-          <div className="mt-8 flex justify-center gap-8">
-            <div className="bg-white shadow-lg p-6 rounded-lg max-w-xs text-center">
-              <p className="text-lg text-gray-600">"Attending the events through this platform has been amazing! It's so easy to find the best ones."</p>
+          <h2 className="text-4xl font-extrabold text-center text-gray-800">
+            What People Are Saying
+          </h2>
+          <p className="mt-4 text-center text-gray-600">
+            Hear from our community about their event experiences.
+          </p>
+          <div className="mt-12 flex flex-wrap justify-center gap-8">
+            <div className="bg-white shadow-lg p-6 rounded-lg max-w-sm text-center">
+              <p className="text-lg text-gray-600">
+                "Attending events through this platform has been amazing! So easy to find and book."
+              </p>
               <div className="mt-4">
                 <p className="font-semibold text-gray-800">Sarah L.</p>
                 <p className="text-gray-500">Event Enthusiast</p>
               </div>
             </div>
-            <div className="bg-white shadow-lg p-6 rounded-lg max-w-xs text-center">
-              <p className="text-lg text-gray-600">"Hosting an event was a breeze with this platform. Highly recommend it for any organizer!"</p>
+            <div className="bg-white shadow-lg p-6 rounded-lg max-w-sm text-center">
+              <p className="text-lg text-gray-600">
+                "Hosting my first event was a breeze. Highly recommend it to anyone organizing!"
+              </p>
               <div className="mt-4">
                 <p className="font-semibold text-gray-800">John D.</p>
                 <p className="text-gray-500">Event Organizer</p>
@@ -95,9 +96,10 @@ events.map((event)=> (
         </div>
       </section>
 
-      <footer className="bg-indigo-600 py-6">
+
+      <footer className="bg-gradient-to-br from-indigo-600 to-purple-600 py-8">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 text-center text-white">
-          <p>© 2024 EventMaster. All rights reserved.</p>
+          <p className="text-lg font-medium">© 2024 EventMaster. All rights reserved.</p>
         </div>
       </footer>
     </div>

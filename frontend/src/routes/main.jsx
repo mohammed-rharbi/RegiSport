@@ -12,56 +12,10 @@ import ManageUsers from "../components/users/manageUsers";
 import EventDetails from "../components/events/eventDetails";
 import MyEvents from "../pages/myEvents";
 import UpcomingEvents from "../pages/upcomingEvents";
+import EventPage from "../pages/eventPage";
 import Guard from "./guard";
 
 const MainRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <Guard roles={'participent'}> <Layout />  </Guard>,
-    children: [
-      {
-        path: "home",
-        element:  <Home />, 
-      },
-
-      {
-        path: "myEvents",
-        element: <MyEvents />, 
-      },
-
-      {
-        path: "commingEvents",
-        element: <UpcomingEvents />, 
-      },
-    ],
-  },
-
-  {
-    path: "/",
-    element:  <Guard roles={'manager'}> <ManagerLayout />  </Guard>,
-    children: [
-    
-      {
-        path: "dash",   
-        element: <DashBoard />, 
-      },
-      {
-        path: "users",
-        element: <ManageUsers />, 
-      },
-      {
-        path: "events",
-        element: <ManageEvents />, 
-      },
-      {
-        path: "event/details/:id",
-        element: <EventDetails />, 
-      },
-    ],
-  },
-
-
-
 
   {
     element: <Outlet />,
@@ -71,16 +25,72 @@ const MainRouter = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "*",
-        element: <NotFound />,
-      },
-      {
         path: "register",
         element: <Register />,
       },
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+
+
+  {
+    path: "/",
+    element: (
+      <Guard>
+        <Layout />
+      </Guard>
+    ),
+    children: [
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "myEvents",
+        element: <MyEvents />,
+      },
+      {
+        path: "commingEvents",
+        element: <UpcomingEvents />,
+      },
+      {
+        path: "event/page/:id",
+        element: <EventPage />,
+      },
+    ],
+  },
+
+
+  {
+    path: "/",
+    element: (
+      <Guard roles={["manager"]}>
+        <ManagerLayout />
+      </Guard>
+    ),
+    children: [
+      {
+        path: "dash",
+        element: <DashBoard />, 
+      },
+      {
+        path: "users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "events",
+        element: <ManageEvents />,
+      },
+      {
+        path: "event/details/:id",
+        element: <EventDetails />,
       },
     ],
   },

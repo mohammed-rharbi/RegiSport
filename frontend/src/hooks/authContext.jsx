@@ -19,6 +19,7 @@ export  const AuthProvider = ({children}) => {
     const [token , setToken] = useState(null);
 
     const [isAuth , setIsAuth] = useState(false);
+    const [loading , setLoading] = useState(true)
 
 
     const register = async ( Name , email , password) => {
@@ -48,9 +49,8 @@ export  const AuthProvider = ({children}) => {
 
         try{
     
-            const userData = { userName: Name  , email: email , password: password  }
     
-            const res = await apiClient.post(`users/getUserById/${userId}`);
+            const res = await apiClient.get(`users/getUserById/${userId}`);
 
             setuser(res.data)
     
@@ -75,9 +75,14 @@ export  const AuthProvider = ({children}) => {
 
             setIsAuth(true);
             setToken(token);
+            getUserById(userId).then(()=> setLoading(false)).catch(()=>{
 
+                setIsAuth(false)
+                setLoading(false);
+            })
+        }else{
+            setLoading(false)
         }
-         getUserById(userId);
 
     },[])
 
@@ -115,8 +120,7 @@ export  const AuthProvider = ({children}) => {
         setuser(null);
         setToken(null);
         setIsAuth(false)
-        localStorage.removeItem('token');
-        localStorage.removeItem('role')
+        localStorage.clear();
 
     }
 
@@ -158,7 +162,7 @@ export  const AuthProvider = ({children}) => {
 
   return (
 
-    <AuthContext.Provider value={{user ,users , token , isAuth , register , login , logout , getAllUsers , deleteUser}}>
+    <AuthContext.Provider value={{user ,users , token , isAuth , loading , register , login , logout , getAllUsers , deleteUser}}>
         {children}
     </AuthContext.Provider>
   )

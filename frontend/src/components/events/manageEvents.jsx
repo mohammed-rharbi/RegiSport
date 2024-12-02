@@ -98,7 +98,7 @@ export default function ManageEvents() {
                     Location: <span className="text-gray-300">{event.location}</span>
                   </p>
                   <p className="text-sm text-gray-400">
-                    Date: <span className="text-gray-300">{event.date}</span>
+                    Date: <span className="text-gray-300">{new Date(event.date).toDateString()}</span>
                   </p>
                   <p className="mt-4 text-sm text-gray-300 leading-relaxed">{event.description}</p>
                 </div>

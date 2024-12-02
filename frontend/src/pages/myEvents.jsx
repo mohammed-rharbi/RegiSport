@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { EventContext } from '../hooks/eventsContext';
 import { AuthContext } from '../hooks/authContext';
+import { Link } from 'react-router-dom';
 
 export default function MyEvents() {
   const [events, setEvents] = useState([]);
@@ -12,7 +13,7 @@ export default function MyEvents() {
       const userEvents = await getUserEvents(user._id);
       setEvents(userEvents);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console   .error("Error fetching events:", error);
     }
   };
 
@@ -52,9 +53,12 @@ export default function MyEvents() {
               </div>
               <div className="p-6">
                 <p className="text-gray-700 line-clamp-4 text-base mb-6">{event.description}</p>
+
+                <Link to={`/event/page/${event._id}`}>
                 <button className="w-full py-3 px-8 bg-gradient-to-r from-teal-600 to-pink-500 text-white font-semibold rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:shadow-xl focus:outline-none">
                   View Details
                 </button>
+                </Link>
               </div>
             </div>
           ))}
