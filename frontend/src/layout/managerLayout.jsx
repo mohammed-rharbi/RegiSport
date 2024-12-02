@@ -28,7 +28,7 @@ export default function ManagerLayout() {
       </div>
 
 
-      <main className="col-span-10 p-4 bg-gray-900">
+      <main className="col-span-10  p-4 bg-gray-900">
         <Outlet />
       </main>
     </div>
