@@ -11,9 +11,11 @@ export default function ManageEvents() {
   const [showUpdate , setShowUpdate] = useState(false);
   const [showAdd , setShowAdd] = useState(false);
 
+
   const [selectedEvent , setSelectedEvent ] = useState(null);
 
   const { events, getEvents , deleteEvent } = useContext(EventContext);
+  const [filterdEvents , setFilterdEvents] = useState(events)
 
 
   const fakeImage = 'https://images.pexels.com/photos/2897462/pexels-photo-2897462.jpeg?auto=compress&cs=tinysrgb&w=600';
@@ -47,10 +49,35 @@ export default function ManageEvents() {
 
   }
 
+  const  sortevents = ()=>{
+
+    setFilterdEvents((ov) =>{
+
+      ov.sort((a,b)=> {  
+
+        return  a.title.localeCompare(b.title)
+      } );
+       
+      return [...ov];
+    })
+
+
+
+
+
+ 
+    
+
+  }
+
+
 
   useEffect(() => {
+
     getEvents();
-  }, []);
+
+
+  }, [filterdEvents]);
 
   return (
     <>
@@ -68,6 +95,13 @@ export default function ManageEvents() {
           >
             + New Event
           </button>
+
+          <button
+            onClick={sortevents}
+            className="bg-green-500 hover:bg-green-600 text-white text-sm font-semibold px-6 py-3 rounded shadow-md"
+          >
+            + Filter
+          </button>
         </header>
 
 
@@ -76,7 +110,7 @@ export default function ManageEvents() {
             Upcoming Events
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event) => (
+            {filterdEvents.map((event) => (
               <div
                 key={event.id}
                 className="bg-gray-800 shadow-lg rounded-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"

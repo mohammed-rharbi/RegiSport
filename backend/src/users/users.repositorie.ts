@@ -20,12 +20,10 @@ export class userRepositorie {
 
     }
 
-
     async findAll() : Promise<User[]>{
 
         return await this.userModel.find({role: 'participant'}).exec();
     }
-
 
     async findByEmail (email: string) : Promise<User>{
 
@@ -59,6 +57,6 @@ export class userRepositorie {
     }
 
 
-
+    
 
 }
