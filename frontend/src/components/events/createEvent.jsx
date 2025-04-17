@@ -83,9 +83,9 @@ export default function CreateEvent({ toggleModal }) {
                 />
               </div>
 
-              <div className="col-span-2 sm:col-span-1">
+             <div className="col-span-2 sm:col-span-1">
                 <label htmlFor="date" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Release Date
+                   Date
                 </label>
                 <input
                   type="date"
@@ -93,8 +93,10 @@ export default function CreateEvent({ toggleModal }) {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
+                  min={new Date().toISOString().split('T')[0]}
                 />
               </div>
+
 
               <div className="col-span-2 sm:col-span-1">
                 <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

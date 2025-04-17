@@ -23,12 +23,12 @@ export default function ManagerLayout() {
       </div>
 
 
-      <div className={`${ isSidebarOpen ? 'block' : 'hidden'} md:block col-span-2 bg-gray-800 text-white transition-all duration-300`}>
+      <div className={`${ isSidebarOpen ? 'block' : 'hidden'} md:block col-span-2 bg-gray-800 z-20 text-white transition-all duration-300`}>
         <SideBar />
       </div>
 
 
-      <main className="col-span-10 w-full p-4 bg-gray-900">
+      <main className="col-span-10  p-4 bg-gray-900">
         <Outlet />
       </main>
     </div>

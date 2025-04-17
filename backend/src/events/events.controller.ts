@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException, UseInterceptors, UploadedFile, NotFoundException } from '@nestjs/common';
+import { Controller, UseGuards , Get, Post, Body, Patch, Param, Delete, BadRequestException, UseInterceptors, UploadedFile, NotFoundException } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { Event } from './entities/event.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { AuthGuard } from 'src/guards/auth.guard';
+
 
 @Controller('events')
 export class EventsController {
