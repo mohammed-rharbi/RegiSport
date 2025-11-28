@@ -1,4 +1,4 @@
-export default function DashCard({ icon, number, label, trend, trendValue }) {
+export default function DashCard({ icon: Icon, number, label, trend, trendValue }) {
   return (
     <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6 shadow-xl hover:shadow-2xl hover:border-secondary/30 transition-all duration-500 overflow-hidden">
 
@@ -9,8 +9,8 @@ export default function DashCard({ icon, number, label, trend, trendValue }) {
       <div className="relative z-10">
         {/* Icon */}
         <div className="flex items-center justify-between mb-4">
-          <div className="w-14 h-14 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 border border-secondary/20">
-            {icon}
+          <div className="w-14 h-14 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-secondary/20">
+            <Icon className="w-7 h-7 text-secondary" strokeWidth={2.5} />
           </div>
 
           {/* Trend indicator */}
