@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   margin: 0;
   padding: 0;
   overscroll-behavior: none;
 }
 
-body{
+body {
 
- background-color: rgb(32, 28, 28);
+  background-color: rgb(32, 28, 28);
 
 }
