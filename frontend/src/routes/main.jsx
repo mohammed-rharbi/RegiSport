@@ -18,32 +18,23 @@ import Guard from "./guard";
 const MainRouter = createBrowserRouter([
 
   {
-    element: <Outlet />,
-    children: [
-      {
-        path: "landing",
-        element: <LandingPage />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "*",
-        element: <NotFound />,
-      },
-    ],
+    path: "/",
+    element: <LandingPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 
 
   {
     path: "/",
     element: (
-      <Guard>
+      <Guard roles={["user"]}>
         <Layout />
       </Guard>
     ),
@@ -78,7 +69,7 @@ const MainRouter = createBrowserRouter([
     children: [
       {
         path: "dash",
-        element: <DashBoard />, 
+        element: <DashBoard />,
       },
       {
         path: "users",
@@ -93,6 +84,12 @@ const MainRouter = createBrowserRouter([
         element: <EventDetails />,
       },
     ],
+  },
+
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
