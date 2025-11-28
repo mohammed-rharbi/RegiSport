@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { EventContext } from '../hooks/eventsContext';
 import { AuthContext } from '../hooks/authContext';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,7 @@ export default function MyEvents() {
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [user , getUserEvents]);
 
   if (events.length === 0) {
     return (
