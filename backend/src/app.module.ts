@@ -8,8 +8,10 @@ import { EventsModule } from './events/events.module';
 import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
-  imports: [ ConfigModule.forRoot({isGlobal: true}) ,
-             MongooseModule.forRoot(process.env.DB),
+  imports: [ 
+    
+             ConfigModule.forRoot({isGlobal: true}) ,
+             MongooseModule.forRoot(process.env.MONGODB_URI),
              UsersModule,
              EventsModule,
              MulterModule.register({
