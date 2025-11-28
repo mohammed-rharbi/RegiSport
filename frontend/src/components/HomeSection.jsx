@@ -6,7 +6,7 @@ export default function HomeSection() {
     const { user } = useContext(AuthContext);
 
     return (
-        <section className="relative pt-32 pb-20 px-6 overflow-hidden min-h-[85vh] flex flex-col justify-center bg-[#0f172a]">
+        <section className="relative pt-40 pb-20 px-6 overflow-hidden min-h-[85vh] flex flex-col justify-center bg-[#0f172a]">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden -z-10">
                 <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
