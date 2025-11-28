@@ -10,12 +10,12 @@ export default function Layout() {
 
     <>
 
-    <Navbar/>
-    
-    <main>
-        <Outlet/>
-    </main>
-    
+      <Navbar />
+
+      <main>
+        <Outlet />
+      </main>
+
     </>
   )
 }

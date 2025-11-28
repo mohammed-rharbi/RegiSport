@@ -1,25 +1,41 @@
-import React from 'react'
-
-export default function DashCard({name}) {
+export default function DashCard({ icon, number, label, trend, trendValue }) {
   return (
+    <div className="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6 shadow-xl hover:shadow-2xl hover:border-secondary/30 transition-all duration-500 overflow-hidden">
 
-<div class="div h-[8em] w-[20em] bg-gray-600 m-auto rounded-[1em] overflow-hidden relative group p-2 z-0">
-  <div
-    class="circle absolute h-[5em] w-[5em] -top-[2.5em] -right-[2.5em] rounded-full bg-[#FF5800] group-hover:scale-[800%] duration-500 z-[-1] op"
-  ></div>
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-secondary/0 to-primary/0 group-hover:from-secondary/5 group-hover:to-primary/5 transition-all duration-500 rounded-3xl"></div>
 
-  <button
-    class="text-[0.8em] absolute bottom-[1em] left-[1em] text-[#6C3082] group-hover:text-[white] duration-500"
-  >
-    <span
-      class="relative before:h-[0.16em] before:absolute before:w-full before:content-[''] before:bg-[#6C3082] group-hover:before:bg-[white] duration-300 before:bottom-0 before:left-0"
-      ><svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="40px" fill="black"><path d="M468-240q-96-5-162-74t-66-166q0-100 70-170t170-70q97 0 166 66t74 162.67L650-513q-11.67-60.67-58.67-100.5T480-653.33q-72 0-122.67 50.66Q306.67-552 306.67-480q0 63.67 39.83 111T447-310l21 70Zm48 158q-9 1.33-18 1.67-9 .33-18 .33-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 9-.33 18-.34 9-1.67 18l-64.67-20v-16q0-139.33-97-236.33t-236.33-97q-139.33 0-236.33 97t-97 236.33q0 139.33 97 236.33t236.33 97h16L516-82Zm305 22L650-231 600-80 480-480l400 120-151 50 171 171-79 79Z"/></svg></span>
-    <i class="fa-solid fa-arrow-right"></i>
-  </button>
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Icon */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-14 h-14 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-2xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 border border-secondary/20">
+            {icon}
+          </div>
 
-  <h1 class="z-20 font-bold font-Poppin text-gray-100 group-hover:text-black duration-500 text-[1.4em]">
-    {name}
-  </h1>
-</div>
-  )
+          {/* Trend indicator */}
+          {trend && (
+            <div className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${trend === 'up' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+              }`}>
+              <span>{trend === 'up' ? '↑' : '↓'}</span>
+              <span>{trendValue}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Number */}
+        <h3 className="text-4xl font-black text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-secondary group-hover:to-primary transition-all duration-300">
+          {number}
+        </h3>
+
+        {/* Label */}
+        <p className="text-gray-400 text-sm font-medium uppercase tracking-wider">
+          {label}
+        </p>
+      </div>
+
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-secondary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    </div>
+  );
 }
