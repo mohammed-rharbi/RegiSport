@@ -17,7 +17,7 @@ export default function Hero() {
 
             <div className="relative z-10 transform hover:scale-105 transition-transform duration-300">
               <img
-                src="/heroimage.png"
+                src="/hero.webp"
                 alt="Sports Event"
                 className="w-full rounded-2xl"
               />

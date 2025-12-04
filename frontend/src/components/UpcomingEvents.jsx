@@ -38,7 +38,7 @@ export default function UpcomingEvents() {
                   #{idx + 1} Trending
                 </div>
                 <div className="absolute bottom-4 left-4 z-20">
-                  <span className="px-3 py-1 bg-secondary text-primary text-xs font-bold rounded-lg shadow-lg">
+                  <span className="px-3 py-1 bg-secondary text-gray-800 text-xs font-bold rounded-lg shadow-lg">
                     {new Date(event.date).toLocaleDateString()}
                   </span>
                 </div>
@@ -66,7 +66,7 @@ export default function UpcomingEvents() {
 
         <div className="text-center mt-16">
           <Link to="/events">
-            <button className="px-8 py-4 bg-secondary text-primary font-bold rounded-2xl shadow-[0_0_20px_rgba(198,255,0,0.3)] hover:shadow-[0_0_30px_rgba(198,255,0,0.5)] hover:-translate-y-1 transition-all duration-300">
+            <button className="px-8 py-4 bg-secondary text-gray-800 font-bold rounded-2xl shadow-[0_0_20px_rgba(198,255,0,0.3)] hover:shadow-[0_0_30px_rgba(198,255,0,0.5)] hover:-translate-y-1 transition-all duration-300">
               View All Events
             </button>
           </Link>

@@ -7,7 +7,6 @@ export default function HomeSection() {
 
     return (
         <section className="relative pt-40 pb-20 px-6 overflow-hidden min-h-[85vh] flex flex-col justify-center bg-[#0f172a]">
-            {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden -z-10">
                 <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] bg-primary/10 rounded-full blur-[120px] animate-pulse"></div>
                 <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[50%] bg-secondary/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -41,7 +40,7 @@ export default function HomeSection() {
                                 </button>
                             </Link>
                             <Link to="/commingEvents" className="group">
-                                <button className="w-full sm:w-auto px-8 py-4 bg-secondary text-primary font-bold rounded-2xl hover:bg-secondary-light shadow-[0_0_20px_rgba(198,255,0,0.2)] hover:shadow-[0_0_30px_rgba(198,255,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
+                                <button className="w-full sm:w-auto px-8 py-4 bg-secondary text-dark font-bold rounded-2xl hover:bg-secondary-light shadow-[0_0_20px_rgba(198,255,0,0.2)] hover:shadow-[0_0_30px_rgba(198,255,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3">
                                     <span className="text-2xl group-hover:rotate-12 transition-transform">🎯</span>
                                     <span>Find Events</span>
                                 </button>
